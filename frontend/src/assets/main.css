@@ -91,11 +91,15 @@ table {
 }
 
 th {
-  background-color: var(--secondary-color);
-  color: white;
+  background-color: #e9ecef;       
+  color: #2c3e50;                  
   padding: 12px 15px;
   text-align: left;
-  font-weight: 600;
+  font-weight: 700;                
+  border-bottom: 3px solid #bdc3c7; 
+  text-transform: uppercase;      
+  font-size: 0.85rem;              
+  letter-spacing: 0.5px;
 }
 
 td {

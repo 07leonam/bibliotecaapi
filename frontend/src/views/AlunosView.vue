@@ -29,9 +29,15 @@
           <td>{{ a.nome }}</td>
           <td>{{ a.matricula }}</td>
           <td>{{ a.email }}</td>
-          <td>
-            <button @click="store.excluirAluno(a.id)" class="btn-delete">Excluir</button>
-          </td>
+        <td>
+            <button @click="$router.push(`/alunos/editar/${a.id}`)" class="btn-editar">
+            Editar
+            </button>
+  
+            <button @click="store.excluirAluno(a.id)" class="btn-delete">
+            Excluir
+            </button>
+        </td>
         </tr>
       </tbody>
     </table>
@@ -41,12 +47,10 @@
 
 <script setup>
 import { reactive, onMounted } from 'vue';
-// Certifique-se que você criou o arquivo alunos.js na pasta stores!
 import { useAlunoStore } from '../stores/alunos';
 
 const store = useAlunoStore();
 
-// Objeto para o formulário
 const aluno = reactive({ nome: '', matricula: '', email: '' });
 
 onMounted(() => {
@@ -55,7 +59,6 @@ onMounted(() => {
 
 async function salvar() {
   await store.cadastrarAluno(aluno);
-  // Limpar formulário após salvar
   aluno.nome = '';
   aluno.matricula = '';
   aluno.email = '';

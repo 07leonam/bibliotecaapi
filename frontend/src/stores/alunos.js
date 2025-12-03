@@ -18,12 +18,23 @@ export const useAlunoStore = defineStore('aluno', {
     async cadastrarAluno(novoAluno) {
       try {
         await api.post('/alunos', novoAluno);
-        await this.buscarAlunos(); // Atualiza a lista na hora
+        await this.buscarAlunos(); 
         alert("Aluno cadastrado!");
       } catch (error) {
         console.error("Erro ao cadastrar:", error);
         alert("Erro ao cadastrar aluno.");
       }
+    },
+
+    async atualizarAluno(aluno) {
+        try {
+            await api.put(`/alunos/${aluno.id}`, aluno);
+            await this.buscarAlunos(); // Atualiza a lista
+            alert("Dados do aluno atualizados!");
+        } catch (error) {
+            console.error("Erro ao atualizar:", error);
+            alert("Erro ao atualizar aluno.");
+        }
     },
 
     async excluirAluno(id) {

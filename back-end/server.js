@@ -139,6 +139,19 @@ app.post('/alunos', (req, res) => {
         res.json({ id: this.lastID, nome, email, matricula });
     });
 });
+//atualizar
+app.put('/alunos/:id', (req, res) => {
+    const { nome, email, matricula } = req.body;
+    const { id } = req.params;
+
+    const sql = 'UPDATE alunos SET nome = ?, email = ?, matricula = ? WHERE id = ?';
+    
+    db.run(sql, [nome, email, matricula, id], function(err) {
+        if (err) return res.status(400).json({ error: err.message });
+        if (this.changes === 0) return res.status(404).json({ message: 'Aluno não encontrado' });
+        res.json({ message: 'Aluno atualizado!', id, nome, email, matricula });
+    });
+});
 
 // Deletar aluno
 app.delete('/alunos/:id', (req, res) => {
