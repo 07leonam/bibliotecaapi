@@ -30,6 +30,7 @@
             </span>
           </td>
           <td>
+            <button @click="$router.push(`/livros/editar/${livro.id}`)" class="btn-editar">Editar</button>
             <button @click="store.excluirLivro(livro.id)" class="btn-delete">Excluir</button>
           </td>
         </tr>
@@ -58,4 +59,5 @@ th { background-color: #f4f4f4; }
 .btn-delete { background-color: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; }
 .tag-verde { color: green; font-weight: bold; background: #e8f5e9; padding: 2px 8px; border-radius: 10px; }
 .tag-vermelha { color: red; font-weight: bold; background: #ffebee; padding: 2px 8px; border-radius: 10px; }
+.btn-editar { background-color: #007bff; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; margin-right: 5px; }
 </style>
