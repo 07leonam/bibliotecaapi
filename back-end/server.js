@@ -6,10 +6,9 @@ const app = express();
 const PORT = 3000;
 
 // Middlewares
-app.use(cors()); // Permite que o Vue acesse a API
+app.use(cors()); 
 app.use(express.json());
 
-// Conexão com Banco de Dados (Cria o arquivo library.db na raiz)
 const db = new sqlite3.Database('./library.db', (err) => {
     if (err) {
         console.error('Erro ao conectar ao SQLite:', err.message);
@@ -56,7 +55,7 @@ app.get('/', (req, res) => {
 
 // --- ROTAS DE LIVROS ---
 
-// 1. Listar todos os livros (READ)
+// 1. Listar todos os livros
 app.get('/livros', (req, res) => {
     db.all('SELECT * FROM livros', [], (err, rows) => {
         if (err) {
@@ -66,12 +65,11 @@ app.get('/livros', (req, res) => {
     });
 });
 
-// 2. Cadastrar novo livro (CREATE)
+// 2. Cadastrar novo livro 
 app.post('/livros', (req, res) => {
     const { titulo, autor, ano } = req.body;
     const sql = 'INSERT INTO livros (titulo, autor, ano) VALUES (?, ?, ?)';
     
-    // Usamos function normal aqui para ter acesso ao 'this.lastID'
     db.run(sql, [titulo, autor, ano], function(err) {
         if (err) {
             return res.status(400).json({ error: err.message });
@@ -86,7 +84,7 @@ app.post('/livros', (req, res) => {
     });
 });
 
-// 3. Editar livro (UPDATE)
+// 3. Editar livro
 app.put('/livros/:id', (req, res) => {
     const { titulo, autor, ano } = req.body;
     const { id } = req.params;
@@ -139,6 +137,7 @@ app.post('/alunos', (req, res) => {
         res.json({ id: this.lastID, nome, email, matricula });
     });
 });
+
 //atualizar
 app.put('/alunos/:id', (req, res) => {
     const { nome, email, matricula } = req.body;

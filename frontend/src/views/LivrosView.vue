@@ -50,14 +50,3 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-.page-container { padding: 20px; }
-.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-th { background-color: #f4f4f4; }
-.btn-delete { background-color: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; }
-.tag-verde { color: green; font-weight: bold; background: #e8f5e9; padding: 2px 8px; border-radius: 10px; }
-.tag-vermelha { color: red; font-weight: bold; background: #ffebee; padding: 2px 8px; border-radius: 10px; }
-.btn-editar { background-color: #007bff; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; margin-right: 5px; }
-</style>

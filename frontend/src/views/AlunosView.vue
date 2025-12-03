@@ -65,14 +65,3 @@ async function salvar() {
 }
 </script>
 
-<style scoped>
-.page-container { padding: 20px; }
-.form-container { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
-.form-inline { display: flex; gap: 10px; flex-wrap: wrap; }
-input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; flex: 1; }
-.btn-add { background: #28a745; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 4px; }
-.btn-delete { background: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; }
-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-th { background-color: #eee; }
-</style>
