@@ -106,7 +106,8 @@ async function salvar() {
 
 <style scoped>
 .page-container { padding: 20px; }
-.form-card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 500px; margin-bottom: 30px; }
+h1 {text-align: center; margin-bottom: 30px;}
+.form-card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 500px; margin-bottom: 30px; margin: 0 auto 30px auto; }
 .form-emprestimo { display: flex; flex-direction: column; gap: 15px; }
 .campo { display: flex; flex-direction: column; }
 select { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }

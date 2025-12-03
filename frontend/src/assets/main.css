@@ -1,0 +1,180 @@
+/* src/assets/main.css */
+
+:root {
+  --primary-color: #42b983; 
+  --secondary-color: #2c3e50; 
+  --danger-color: #e74c3c;    
+  --info-color: #3498db;      
+  --bg-color: #f4f6f8;       
+  --card-bg: #ffffff;
+  --text-color: #333;
+}
+
+/* --- GERAL --- */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+#app {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 { color: var(--secondary-color); margin-bottom: 20px; }
+h2, h3 { color: var(--secondary-color); margin-bottom: 15px; }
+
+/* --- MENU DE NAVEGAÇÃO MODERNIZADO --- */
+nav {
+  background-color: var(--secondary-color); /* Fundo Azul Escuro */
+  padding: 15px 30px;
+  border-radius: 0 0 15px 15px; /* Arredondado apenas embaixo */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between; /* Logo na esquerda, links na direita */
+  align-items: center;
+  color: white;
+}
+
+/* Estilo do Logo/Título */
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.links {
+  display: flex;
+  gap: 10px; /* Espaço entre os botões */
+}
+
+nav a {
+  text-decoration: none;
+  color: #ecf0f1; /* Branco gelo */
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 20px; /* Botão arredondado (Pill shape) */
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+/* Quando passar o mouse */
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--primary-color);
+  transform: translateY(-2px); /* Leve subidinha */
+}
+
+/* Quando o link estiver ativo (Página atual) */
+nav a.router-link-active {
+  background-color: var(--primary-color); /* Fundo Verde */
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(66, 185, 131, 0.4); /* Sombra suave verde */
+}
+
+/* --- TABELAS --- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--card-bg);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 15px;
+}
+
+th {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: 600;
+}
+
+td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+tr:hover { background-color: #f1f1f1; }
+tr:last-child td { border-bottom: none; }
+
+/* --- BOTÕES --- */
+button {
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+button:active { transform: scale(0.98); }
+
+/* Classes que usamos nas telas */
+.btn-add, .btn-salvar, .btn-novo { background-color: var(--primary-color); color: white; }
+.btn-delete, .btn-cancelar { background-color: var(--danger-color); color: white; }
+.btn-editar, .btn-acao { background-color: var(--info-color); color: white; }
+.btn-devolver { background-color: #f39c12; color: white; }
+
+/* --- FORMULÁRIOS --- */
+form {
+  background-color: var(--card-bg);
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box; 
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(66, 185, 131, 0.2);
+}
+
+label {
+  font-weight: bold;
+  color: #555;
+  display: block;
+}
+
+/* --- TAGS DE STATUS --- */
+.tag-verde, .status-ok, .devolvido {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.tag-vermelha, .status-out, .pendente {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}

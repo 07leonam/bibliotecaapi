@@ -2,11 +2,15 @@
   <div class="app-container">
     <header>
       <nav>
-        <router-link to="/">Home</router-link> |
-        <router-link to="/livros">Livros</router-link> |
-        <router-link to="/alunos">Alunos</router-link> |
-        <router-link to="/emprestimos">Empréstimos</router-link> 
-      </nav>
+      <span class="logo">Biblioteca 📚</span>
+      
+      <div class="links">
+        <router-link to="/">Home</router-link>
+        <router-link to="/livros">Livros</router-link>
+        <router-link to="/alunos">Alunos</router-link>
+        <router-link to="/emprestimos">Empréstimos</router-link>
+      </div>
+    </nav>
     </header>
     
     <main>
