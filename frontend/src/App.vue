@@ -4,7 +4,8 @@
       <nav>
         <router-link to="/">Home</router-link> |
         <router-link to="/livros">Livros</router-link> |
-        <router-link to="/alunos">Alunos</router-link>
+        <router-link to="/alunos">Alunos</router-link> |
+        <router-link to="/emprestimos">Empréstimos</router-link> 
       </nav>
     </header>
     

@@ -4,6 +4,7 @@ import LivrosView from '../views/LivrosView.vue'
 import LivroCadastroView from '../views/LivroCadastroView.vue'
 import LivroEditarView from '../views/LivroEditarView.vue'
 import AlunosView from '../views/AlunosView.vue'
+import EmprestimosView from '../views/EmprestimosView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,7 +13,8 @@ const router = createRouter({
     { path: '/livros', name: 'livros', component: LivrosView },
     { path: '/livros/novo', name: 'livro-novo', component: LivroCadastroView },
     { path: '/livros/editar/:id', name: 'livro-editar', component: LivroEditarView },
-    { path: '/alunos', name: 'alunos', component: AlunosView }
+    { path: '/alunos', name: 'alunos', component: AlunosView },
+    { path: '/emprestimos', name: 'emprestimos', component: EmprestimosView }
   ]
 })
 
