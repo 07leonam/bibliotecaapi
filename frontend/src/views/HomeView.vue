@@ -2,15 +2,14 @@
   <div class="dashboard">
     <div class="welcome-header">
       <h1>👋 Olá, Bibliotecário!</h1>
-      <p>Aqui está o resumo do que está acontecendo na sua biblioteca hoje.</p>
+      <p>Painel de controle e monitoramento de estoque.</p>
     </div>
 
     <div class="stats-grid">
-      
       <div class="card" @click="$router.push('/livros')">
         <div class="card-icon">📚</div>
         <div class="card-info">
-          <h3>Livros</h3>
+          <h3>Títulos</h3>
           <p class="number">{{ livroStore.livros.length }}</p>
         </div>
       </div>
@@ -26,44 +25,100 @@
       <div class="card active-loans" @click="$router.push('/emprestimos')">
         <div class="card-icon">📅</div>
         <div class="card-info">
-          <h3>Empréstimos Ativos</h3>
+          <h3>Empréstimos</h3>
           <p class="number">{{ emprestimosAtivos }}</p>
         </div>
       </div>
+    </div>
 
+    <div class="section-container">
+      <div class="filter-bar">
+        <div class="filter-label">
+          <span class="icon">🔍</span>
+          <label for="filtro-genero">Filtrar por Gênero:</label>
+        </div>
+        
+        <div class="select-wrapper">
+          <select id="filtro-genero" v-model="filtroAtivo" class="filter-select">
+            <option :value="null">Todos os Gêneros</option>
+            <option v-for="(qtd, genero) in livrosPorGenero" :key="genero" :value="genero">
+              {{ genero }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-container">
+      <div class="stock-header-row">
+        <h2>📦 Estoque: <span class="highlight">{{ filtroAtivo ? filtroAtivo : 'Geral' }}</span></h2>
+        <span class="count-badge">{{ livrosFiltrados.length }} livros</span>
+      </div>
+      
+      <div class="stock-grid">
+        <div v-for="livro in livrosFiltrados" :key="livro.id" class="stock-card">
+          <div class="stock-header">
+            <span class="stock-title">{{ livro.titulo }}</span>
+            <span class="stock-type">{{ livro.tipo || 'Geral' }}</span>
+          </div>
+          <div class="stock-footer">
+            <span class="stock-label">Qtd:</span>
+            <span :class="['stock-qtd', livro.quantidade < 3 ? 'low-stock' : 'good-stock']">
+              {{ livro.quantidade }}
+            </span>
+          </div>
+        </div>
+        
+        <p v-if="livrosFiltrados.length === 0" class="empty-msg">Nenhum livro encontrado.</p>
+      </div>
     </div>
 
     <div class="quick-actions">
       <h2>Acesso Rápido</h2>
       <div class="actions-grid">
-        <button @click="$router.push('/livros/novo')" class="action-btn">
-          ➕ Cadastrar Livro
-        </button>
-        <button @click="$router.push('/emprestimos')" class="action-btn">
-          📝 Novo Empréstimo
-        </button>
+        <button @click="$router.push('/livros/novo')" class="action-btn">➕ Cadastrar Livro</button>
+        <button @click="$router.push('/emprestimos')" class="action-btn">📝 Novo Empréstimo</button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useLivroStore } from '../stores/livros';
 import { useAlunoStore } from '../stores/alunos';
 import { useEmprestimoStore } from '../stores/emprestimos';
 
-// Importando as stores para pegar os números
 const livroStore = useLivroStore();
 const alunoStore = useAlunoStore();
 const emprestimoStore = useEmprestimoStore();
 
-// Calcula quantos empréstimos ainda não têm data de devolução
+const filtroAtivo = ref(null);
+
 const emprestimosAtivos = computed(() => {
   return emprestimoStore.emprestimos.filter(e => !e.data_devolucao).length;
 });
 
-// Ao carregar a Home, atualiza todos os dados para os números estarem certos
+const livrosPorGenero = computed(() => {
+  const stats = {};
+  livroStore.livros.forEach(livro => {
+    let genero = livro.tipo || 'Outros';
+    genero = genero.charAt(0).toUpperCase() + genero.slice(1);
+    if (!stats[genero]) stats[genero] = 0;
+    stats[genero]++;
+  });
+  return stats;
+});
+
+const livrosFiltrados = computed(() => {
+  if (!filtroAtivo.value) return livroStore.livros;
+  return livroStore.livros.filter(livro => {
+    let g = livro.tipo || 'Outros';
+    g = g.charAt(0).toUpperCase() + g.slice(1);
+    return g === filtroAtivo.value;
+  });
+});
+
 onMounted(() => {
   livroStore.buscarLivros();
   alunoStore.buscarAlunos();
@@ -71,112 +126,3 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-.dashboard {
-  padding: 20px;
-}
-
-.welcome-header {
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-.welcome-header h1 {
-  font-size: 2.5rem;
-  color: var(--secondary-color);
-  margin-bottom: 10px;
-}
-
-.welcome-header p {
-  color: #666;
-  font-size: 1.1rem;
-}
-
-/* --- CARDS DE ESTATÍSTICA --- */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin-bottom: 50px;
-}
-
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  border-left: 5px solid var(--primary-color);
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-}
-
-.card-icon {
-  font-size: 3rem;
-  background: #f0fdf4;
-  width: 70px;
-  height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-}
-
-.card-info h3 {
-  margin: 0;
-  color: #7f8c8d;
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.card-info .number {
-  margin: 0;
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: var(--secondary-color);
-}
-
-/* Estilo especial para o card de Empréstimos */
-.active-loans {
-  border-left-color: #f39c12;
-}
-.active-loans .card-icon {
-  background: #fef9e7;
-}
-
-/* --- BOTÕES DE AÇÃO --- */
-.quick-actions h2 {
-  font-size: 1.5rem;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-}
-
-.actions-grid {
-  display: flex;
-  gap: 15px;
-}
-
-.action-btn {
-  background-color: var(--secondary-color);
-  color: white;
-  padding: 15px 25px;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: background 0.3s;
-}
-
-.action-btn:hover {
-  background-color: var(--primary-color);
-}
-</style>

@@ -51,7 +51,7 @@
           <td>{{ new Date(emp.data_emprestimo).toLocaleString() }}</td>
           <td>
             <span v-if="emp.data_devolucao" class="devolvido">
-               {{ new Date(emp.data_devolucao).toLocaleString() }}
+              {{ new Date(emp.data_devolucao).toLocaleString() }}
             </span>
             <span v-else class="pendente">Pendente</span>
           </td>
@@ -84,7 +84,7 @@ const form = reactive({
 
 
 const livrosDisponiveis = computed(() => {
-  return livroStore.livros.filter(l => l.disponivel == 1);
+  return livroStore.livros.filter(l => l.quantidade > 0);
 });
 
 
@@ -104,21 +104,3 @@ async function salvar() {
 }
 </script>
 
-<style scoped>
-.page-container { padding: 20px; }
-h1 {text-align: center; margin-bottom: 30px;}
-.form-card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 500px; margin-bottom: 30px; margin: 0 auto 30px auto; }
-.form-emprestimo { display: flex; flex-direction: column; gap: 15px; }
-.campo { display: flex; flex-direction: column; }
-select { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
-
-.btn-acao { background: #007bff; color: white; border: none; padding: 10px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-.btn-devolver { background: #ff9800; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
-
-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-th { background-color: #eee; }
-
-.pendente { color: red; font-weight: bold; }
-.devolvido { color: green; }
-</style>

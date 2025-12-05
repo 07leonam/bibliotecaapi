@@ -39,7 +39,6 @@ const router = useRouter();
 const aluno = reactive({ id: null, nome: '', matricula: '', email: '' });
 
 onMounted(async () => {
-  // Pega o ID da URL e busca os dados atuais do aluno para preencher o form
   const id = route.params.id;
   try {
     const response = await api.get('/alunos');
@@ -65,9 +64,3 @@ async function salvar() {
 }
 </script>
 
-<style scoped>
-.page-container { padding: 20px; text-align: center; }
-.form-card { max-width: 500px; margin: 0 auto; text-align: left; }
-.actions { display: flex; gap: 10px; margin-top: 15px; }
-.btn-salvar { flex: 1; }
-</style>

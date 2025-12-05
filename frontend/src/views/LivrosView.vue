@@ -13,25 +13,26 @@
           <th>ID</th>
           <th>Título</th>
           <th>Autor</th>
-          <th>Ano</th>
+          <th>Tipo</th>
+          <th>Qtd</th>
           <th>Status</th>
           <th>Ações</th>
         </tr>
       </thead>
+
       <tbody>
         <tr v-for="livro in store.livros" :key="livro.id">
           <td>{{ livro.id }}</td>
           <td>{{ livro.titulo }}</td>
           <td>{{ livro.autor }}</td>
-          <td>{{ livro.ano }}</td>
+          <td>{{ livro.tipo }}</td>
+          <td>{{ livro.quantidade }}</td>
           <td>
-            <span :class="livro.disponivel ? 'tag-verde' : 'tag-vermelha'">
-              {{ livro.disponivel ? 'Disponível' : 'Emprestado' }}
+            <span :class="livro.quantidade > 0 ? 'tag-verde' : 'tag-vermelha'">
+              {{ livro.quantidade > 0 ? 'Disponível' : 'Indisponível' }}
             </span>
           </td>
           <td>
-            <button @click="$router.push(`/livros/editar/${livro.id}`)" class="btn-editar">Editar</button>
-            <button @click="store.excluirLivro(livro.id)" class="btn-delete">Excluir</button>
           </td>
         </tr>
       </tbody>
@@ -41,7 +42,7 @@
 
 <script setup>
 import { onMounted } from 'vue';
-import { useLivroStore } from '../stores/livros.js'; 
+import { useLivroStore } from '../stores/livros.js';
 
 const store = useLivroStore();
 
@@ -49,4 +50,3 @@ onMounted(() => {
   store.buscarLivros();
 });
 </script>
-
